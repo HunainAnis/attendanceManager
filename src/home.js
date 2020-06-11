@@ -1,33 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import * as firebase from 'firebase'
-import { fileStructure } from './config';
 import SubmitForm from './submitForm';
 import HeaderTop from './Header';
+import Navbar from './Navbar';
+import { BrowserRouter as Route, Switch } from "react-router-dom";
+import Admin from './Admin';
 
 class Home extends React.Component {
   state = {
-    data: ''
+    data: '',
+    classes:[]
   }
 
   componentDidMount() {
-    const database =  firebase.database()
-    const dbRef = database.ref().child('days')
-    dbRef.on('value', snapshot => {
+    const db = firebase.database().ref().child('classes')
+    db.on('value', snapshot => {
         this.setState({
-          data: snapshot.val()
+            classes: snapshot.val()
         })
     })
-    dbRef.set(fileStructure.days)
-    .then(console.log('updated'))
   }
-
   render() {
   return (
     <div>
+        <Navbar />
         <HeaderTop />
-        <SubmitForm />
+        <Switch>
+            <Route path='/Admin'>
+                <Admin />
+            </Route>
+            <Route exact path='/SubmitForm'>
+                <SubmitForm classes = {this.state.classes} />
+            </Route>
+        </Switch>
     </div>
   );
   }

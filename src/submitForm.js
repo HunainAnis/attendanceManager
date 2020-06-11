@@ -1,12 +1,25 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
+import * as firebase  from 'firebase'
 
 class SubmitForm extends React.Component {
     state = {
+        name:'',
+        enrollment: '',
+        subjects:[],
         today:'',
         classes:[]
     }
+
+    formatData() {
+
+        const today = new Date()
+        const time = today.getTime()
+
+    }
+
     render() {
+        console.log(this.props.classes)
         return (
         <MDBContainer className='text-center'>
         <MDBRow>
