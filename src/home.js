@@ -28,7 +28,7 @@ class Home extends React.Component {
         <HeaderTop />
         <Switch>
             <Route path='/Admin'>
-                <Admin />
+                <Admin classes = {this.state.classes} />
             </Route>
             <Route exact path='/SubmitForm'>
                 <SubmitForm classes = {this.state.classes} />

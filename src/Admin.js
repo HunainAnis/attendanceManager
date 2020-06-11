@@ -30,6 +30,17 @@ class Admin extends React.Component {
         return(
         <MDBContainer>
             <div>
+                <h2>Today's classes</h2>
+                <ol>
+                    {this.props.classes === null
+                    ?<h3>No classes available for today</h3>
+                    :this.props.classes.map(i=>(
+                        <li>{i}</li>
+                    ))
+                }
+                </ol>
+            </div>
+            <div>
                 <h2>Fill todays class checkbox!</h2>
             </div>
             <div className="custom-control custom-checkbox">
