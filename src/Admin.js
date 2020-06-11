@@ -35,7 +35,7 @@ class Admin extends React.Component {
                     {this.props.classes === null
                     ?<h3>No classes available for today</h3>
                     :this.props.classes.map(i=>(
-                        <li>{i}</li>
+                        <li key={i}>{i}</li>
                     ))
                 }
                 </ol>

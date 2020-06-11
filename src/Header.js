@@ -1,6 +1,6 @@
 import React from "react";
 
-import { MDBJumbotron, MDBBtn, MDBContainer, MDBRow, MDBCol, MDBIcon, MDBCardBody, MDBCardText,  MDBCardTitle } from "mdbreact";
+import { MDBJumbotron, MDBContainer, MDBRow, MDBCol, MDBCardBody, MDBCardText,  MDBCardTitle } from "mdbreact";
 
 const HeaderTop = () => {
   return (
