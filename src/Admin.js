@@ -1,5 +1,6 @@
 import React from 'react'
 import * as firebase from 'firebase'
+import { CSVLink } from "react-csv";
 import { MDBContainer, MDBBtn, MDBRow, MDBCol, MDBTable, MDBTableHead, MDBTableBody } from 'mdbreact'
 
 
@@ -57,24 +58,28 @@ class Admin extends React.Component {
         console.log(this.state.days)
         const data = {
             columns: [
-                {
-                    label: 'Name',
+            {
+                label: 'Name',
                 field: 'name',
+                key: 'name',
                 sort: 'asc'
             },
             {
                 label: 'Roll #',
                 field: 'rollno',
+                key: 'rollno',
                 sort: 'asc'
             },
             {
                 label: 'Class(es)',
                 field: 'classes',
+                key: 'classes',
                 sort: 'asc'
             },
             {
                 label: 'Date',
                 field: 'date',
+                key: 'date',
                 sort: 'asc'
             }
         ],
@@ -116,6 +121,9 @@ class Admin extends React.Component {
             <MDBBtn onClick={()=>this.submitClasses()}>Submit</MDBBtn>
             <MDBRow>
                 <MDBCol>
+                    <CSVLink data={data.rows} headers={data.columns}>
+                        Download Excel File
+                    </CSVLink>
                     <MDBTable responsive>
                         <MDBTableHead columns={data.columns} />
                         <MDBTableBody rows={data.rows} />
