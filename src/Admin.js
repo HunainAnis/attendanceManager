@@ -1,7 +1,7 @@
 import React from 'react'
 import * as firebase from 'firebase'
 import { CSVLink } from "react-csv";
-import { MDBContainer, MDBBtn, MDBRow, MDBCol, MDBTable, MDBTableHead, MDBTableBody } from 'mdbreact'
+import { MDBContainer, MDBBtn, MDBRow, MDBCol, MDBTable, MDBTableHead, MDBTableBody, MDBInput } from 'mdbreact'
 import { MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink } from "mdbreact";
 
 
@@ -15,7 +15,8 @@ class Admin extends React.Component {
         forensic:false,
         medchem:false,
         pharmatech:false,
-        days:null
+        days:null,
+        password:''
     }
 
     toggle = tab => e => {
@@ -45,6 +46,11 @@ class Admin extends React.Component {
         this.setState(state=>({
             [name]:!state[name]
         }))
+    }
+    handlePassword(e) {
+        this.setState({
+            [e.target.name]:e.target.value
+        })
     }
     arrangeData(data) {
         const { days } = this.state
@@ -95,6 +101,14 @@ class Admin extends React.Component {
             }
         ],
         rows: []
+    }
+    if(this.state.password !== 'myNewPassword') {
+        return(
+            <MDBContainer>
+                <MDBInput name='password' onChange={(e)=>this.handlePassword(e)} value={this.state.password} label="Enter the Admin Password" group type="password" validate error="wrong"
+                success="right" />
+            </MDBContainer>
+            )
     }
     this.state.days !== null && this.arrangeData(data)
         return(

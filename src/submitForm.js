@@ -47,6 +47,7 @@ class SubmitForm extends React.Component {
         db.update(updates)
         console.log('completed!')
         this.setState({name:'', enrollment: '', marketing:false, forensic:false, medchem:false, pharmatech:false,})
+        alert('Your entry is submitted!')
     }
     }
 

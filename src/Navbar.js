@@ -25,11 +25,11 @@ render() {
             <MDBNavItem>
               <MDBNavLink to="/SubmitForm">Attendance</MDBNavLink>
             </MDBNavItem>
+          </MDBNavbarNav>
+          <MDBNavbarNav right>
             <MDBNavItem>
               <MDBNavLink to="/Admin">Admin</MDBNavLink>
             </MDBNavItem>
-          </MDBNavbarNav>
-          <MDBNavbarNav right>
             <MDBNavItem>
               <a className="unstyled waves-effect waves-light" href="https://github.com/HunainAnis/attendanceManager">
                 <MDBIcon fab icon="github" />

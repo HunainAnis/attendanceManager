@@ -34,11 +34,11 @@ class Home extends React.Component {
         ?<h1>Loading...</h1>
         :
         <Switch>
-            <Route path='/Admin'>
-                <Admin classes = {this.state.classes} />
-            </Route>
             <Route exact path='/SubmitForm'>
                 <SubmitForm days={this.state.days} classes = {this.state.classes} />
+            </Route>
+            <Route path='/Admin'>
+                <Admin classes = {this.state.classes} />
             </Route>
         </Switch>
       }
