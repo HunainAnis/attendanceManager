@@ -12,7 +12,25 @@ class SubmitForm extends React.Component {
         pharmatech:false,
     }
 
-    formatData() {
+    checkerIfExistAlready() {
+        const now = new Date()
+        let today = now.getDate().toString()+(now.getMonth()+1).toString()+now.getFullYear().toString()
+        const { days } = this.props
+
+        return Object.keys(days[today].students).filter(i=>days[today].students[i].enrollment === this.state.enrollment).length !== 0 
+    }
+
+    handleSubmit() {
+        if(this.state.name === '') {
+            alert('Please enter you Name!')
+        }
+        else if(this.state.enrollment === '') {
+            alert('Please enter your correct Roll Number in a format like this (15/2015/000)!')
+        }
+        else if(this.checkerIfExistAlready()) {
+            alert('Your data already exist for today!')
+        }
+        else{
         const now = new Date()
         let today = now.getDate().toString()+(now.getMonth()+1).toString()+now.getFullYear().toString()
         const time = new Date().getTime()
@@ -29,6 +47,7 @@ class SubmitForm extends React.Component {
         db.update(updates)
         console.log('completed!')
         this.setState({name:'', enrollment: '', marketing:false, forensic:false, medchem:false, pharmatech:false,})
+    }
     }
 
     handleChange(e) {
@@ -68,7 +87,7 @@ class SubmitForm extends React.Component {
                 }
                 </div>
                 <div className="text-center">
-                <MDBBtn onClick={()=>this.formatData()} color="blue">Submit Attendance</MDBBtn>
+                <MDBBtn onClick={()=>this.handleSubmit()} color="blue">Submit Attendance</MDBBtn>
                 </div>
             </form>
             </MDBCol>

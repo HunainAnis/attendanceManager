@@ -10,15 +10,19 @@ import Admin from './Admin';
 class Home extends React.Component {
   state = {
     data: '',
-    classes:[]
+    classes:[],
+    days:null
   }
 
   componentDidMount() {
-    const db = firebase.database().ref().child('classes')
-    db.on('value', snapshot => {
+    const db = firebase.database().ref()
+    db.child('classes').on('value', snapshot => {
         this.setState({
             classes: snapshot.val()
         })
+    })
+    db.child('days').on('value', snapshot=> {
+      this.setState({days: snapshot.val()})
     })
   }
   render() {
@@ -26,14 +30,18 @@ class Home extends React.Component {
     <div>
         <Navbar />
         <HeaderTop />
+        {this.state.days === null 
+        ?<h1>Loading...</h1>
+        :
         <Switch>
             <Route path='/Admin'>
                 <Admin classes = {this.state.classes} />
             </Route>
             <Route exact path='/SubmitForm'>
-                <SubmitForm classes = {this.state.classes} />
+                <SubmitForm days={this.state.days} classes = {this.state.classes} />
             </Route>
         </Switch>
+      }
     </div>
   );
   }
