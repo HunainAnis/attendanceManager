@@ -6,25 +6,29 @@ class SubmitForm extends React.Component {
     state = {
         name:'',
         enrollment: '',
-        subjects:[],
-        today:'',
-        classes:[],
+        marketing:false,
+        forensic:false,
+        medchem:false,
+        pharmatech:false,
     }
 
     formatData() {
-
-        const today = new Date().toLocaleDateString()
+        const now = new Date()
+        let today = now.getDate().toString()+(now.getMonth()+1).toString()+now.getFullYear().toString()
         const time = new Date().getTime()
         const { enrollment, name } = this.state
+        const classes = Object.keys(this.state).filter(i=>this.state[i]===true)
+
+        console.log(today)
 
         const db = firebase.database().ref().child('days').child(today).child('students')
         const key = db.push().key
-        const newData = {enrollment, name, time}
+        const newData = {enrollment, name, time, classes}
         const updates = {}
         updates[key] = newData
         db.update(updates)
         console.log('completed!')
-        this.setState({name:'', enrollment: ''})
+        this.setState({name:'', enrollment: '', marketing:false, forensic:false, medchem:false, pharmatech:false,})
     }
 
     handleChange(e) {
@@ -32,9 +36,15 @@ class SubmitForm extends React.Component {
             [e.target.name]:e.target.value
         })
     }
+    handleToggle(e) {
+        const { name } = e.target
+        this.setState(state=>({
+            [name]:!state[name]
+        }))
+    }
 
     render() {
-        console.log(this.props.classes)
+        console.log(this.state)
         return (
         <MDBContainer>
         <MDBRow>
@@ -44,20 +54,21 @@ class SubmitForm extends React.Component {
                 <div className="grey-text">
                 <MDBInput name='name' onChange={(e)=>this.handleChange(e)} value={this.state.name} label="Full Name" group type="text" validate error="wrong"
                     success="right" />
-                <MDBInput name='enrollment' label="Enrollment Number (xx/20xx/xxx)" group type="number" validate error="wrong"
+                <MDBInput name='enrollment' label="Enrollment Number (xx/20xx/xxx)" group type="text" validate error="wrong"
                     success="right" onChange={(e)=>this.handleChange(e)} value={this.state.enrollment} />
                 </div>
                 <div>
-                {this.props.classes !== null && this.props.classes.map(i=>(
-                    <div key={i}>
-                        <input type="checkbox" className="custom-control-input" id={i} name='marketing' />
-                        <label className="custom-control-label" htmlFor={i}>{i}</label>
-                    </div>
-                ))
-            }
+                {
+                    this.props.classes !== null && this.props.classes.map(i=>(
+                        <div key={i}>
+                            <input onChange={e=>this.handleToggle(e)} type="checkbox" className="custom-control-input" checked={this.state[i]} id={i} name={i} />
+                            <label className="custom-control-label" htmlFor={i}>{i}</label>
+                        </div>
+                    ))
+                }
                 </div>
                 <div className="text-center">
-                <MDBBtn onClick={()=>this.formatData()} color="primary">Submit Attendance</MDBBtn>
+                <MDBBtn onClick={()=>this.formatData()} color="blue">Submit Attendance</MDBBtn>
                 </div>
             </form>
             </MDBCol>
