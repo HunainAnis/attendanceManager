@@ -15,6 +15,8 @@ class Admin extends React.Component {
         forensic:false,
         medchem:false,
         pharmatech:false,
+        clinical:false,
+        biopharma:false,
         days:null,
         password:''
     }
@@ -156,6 +158,14 @@ class Admin extends React.Component {
                         <div className="custom-control custom-checkbox">
                         <input onChange={(e)=>this.handleChange(e)} type="checkbox" className="custom-control-input" id="pharmatech" name='pharmatech' checked={this.state.pharmatech} />
                         <label className="custom-control-label" htmlFor="pharmatech">Pharmaceutical Technology</label>
+                        </div>
+                        <div className="custom-control custom-checkbox">
+                        <input onChange={(e)=>this.handleChange(e)} type="checkbox" className="custom-control-input" id="biopharma" name='biopharma' checked={this.state.biopharma} />
+                        <label className="custom-control-label" htmlFor="biopharma">Biopharmaceutics and Pharmacokinetics</label>
+                        </div>
+                        <div className="custom-control custom-checkbox">
+                        <input onChange={(e)=>this.handleChange(e)} type="checkbox" className="custom-control-input" id="clinical" name='clinical' checked={this.state.clinical} />
+                        <label className="custom-control-label" htmlFor="clinical">Clinical Pharmacy</label>
                         </div>
                         <MDBBtn onClick={()=>this.submitClasses()}>Submit</MDBBtn>
                     </MDBTabPane>

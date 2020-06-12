@@ -22,9 +22,7 @@ render() {
             <MDBNavItem active>
               <MDBNavLink to="/">Home</MDBNavLink>
             </MDBNavItem>
-            <MDBNavItem>
               <MDBNavLink to="/SubmitForm">Attendance</MDBNavLink>
-            </MDBNavItem>
           </MDBNavbarNav>
           <MDBNavbarNav right>
             <MDBNavItem>

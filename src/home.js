@@ -4,8 +4,9 @@ import * as firebase from 'firebase'
 import SubmitForm from './submitForm';
 import HeaderTop from './Header';
 import Navbar from './Navbar';
-import { BrowserRouter as Route, Switch } from "react-router-dom";
+import { BrowserRouter as Route, Switch, Redirect } from "react-router-dom";
 import Admin from './Admin';
+import { MDBBtn, MDBContainer, MDBNavItem, MDBNavLink } from 'mdbreact';
 
 class Home extends React.Component {
   state = {
@@ -34,10 +35,18 @@ class Home extends React.Component {
         ?<h1>Loading...</h1>
         :
         <Switch>
+            <Route exact path='/'>
+              {console.log(this.props)}
+              <MDBContainer style={{alignContent: 'center'}} className='center'>
+              <MDBBtn>
+                <MDBNavLink to="/SubmitForm">Attendance</MDBNavLink>
+            </MDBBtn>
+              </MDBContainer>
+            </Route>
             <Route exact path='/SubmitForm'>
                 <SubmitForm days={this.state.days} classes = {this.state.classes} />
             </Route>
-            <Route path='/Admin'>
+            <Route exact path='/Admin'>
                 <Admin classes = {this.state.classes} />
             </Route>
         </Switch>

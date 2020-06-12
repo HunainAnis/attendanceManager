@@ -1,6 +1,7 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
 import * as firebase  from 'firebase'
+import { Redirect } from "react-router-dom";
 
 class SubmitForm extends React.Component {
     state = {
@@ -9,6 +10,8 @@ class SubmitForm extends React.Component {
         marketing:false,
         forensic:false,
         medchem:false,
+        clinical:false,
+        biopharma:false,
         pharmatech:false,
     }
 
@@ -17,7 +20,7 @@ class SubmitForm extends React.Component {
         let today = now.getDate().toString()+(now.getMonth()+1).toString()+now.getFullYear().toString()
         const { days } = this.props
 
-        return Object.keys(days[today].students).filter(i=>days[today].students[i].enrollment === this.state.enrollment).length !== 0 
+        return days[today] !== undefined && Object.keys(days[today].students).filter(i=>days[today].students[i].enrollment === this.state.enrollment).length !== 0 
     }
 
     handleSubmit() {
@@ -25,6 +28,12 @@ class SubmitForm extends React.Component {
             alert('Please enter you Name!')
         }
         else if(this.state.enrollment === '') {
+            alert('Please enter your correct Roll Number in a format like this (15/2015/000)!')
+        }
+        else if(this.state.enrollment[2] !== '/') {
+            alert('Please enter your correct Roll Number in a format like this (15/2015/000)!')
+        }
+        else if(this.state.enrollment[7] !== '/') {
             alert('Please enter your correct Roll Number in a format like this (15/2015/000)!')
         }
         else if(this.checkerIfExistAlready()) {
@@ -48,6 +57,7 @@ class SubmitForm extends React.Component {
         console.log('completed!')
         this.setState({name:'', enrollment: '', marketing:false, forensic:false, medchem:false, pharmatech:false,})
         alert('Your entry is submitted!')
+        return <Redirect to='/' />
     }
     }
 
@@ -80,10 +90,10 @@ class SubmitForm extends React.Component {
                 <div>
                 {
                     this.props.classes !== null && this.props.classes.map(i=>(
-                        <div key={i}>
+                        <MDBCol key={i}>
                             <input onChange={e=>this.handleToggle(e)} type="checkbox" className="custom-control-input" checked={this.state[i]} id={i} name={i} />
                             <label className="custom-control-label" htmlFor={i}>{i}</label>
-                        </div>
+                        </MDBCol>
                     ))
                 }
                 </div>
