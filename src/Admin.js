@@ -1,15 +1,25 @@
 import React from 'react'
 import * as firebase from 'firebase'
-import { MDBContainer, MDBBtn } from 'mdbreact'
+import { MDBContainer, MDBBtn, MDBRow, MDBCol, MDBTable, MDBTableHead, MDBTableBody } from 'mdbreact'
+
+
 
 class Admin extends React.Component {
-
+    
     state = {
         todayclass:[],
         marketing:false,
         forensic:false,
         medchem:false,
         pharmatech:false,
+        days:null
+    }
+    
+    componentDidMount() {
+        const db = firebase.database().ref().child('days')
+        db.on('value', data=>{
+            this.setState({days:data.val()})
+        })
     }
 
     submitClasses() {
@@ -25,10 +35,54 @@ class Admin extends React.Component {
             [name]:!state[name]
         }))
     }
-
+    arrangeData(data) {
+        const { days } = this.state
+        let arranged = {}
+        Object.keys(days).map(date=>{
+            Object.keys(days[date].students).map(student=>{
+               arranged = {
+                    'name': days[date].students[student].name.toString(),
+                    'rollno': days[date].students[student].enrollment.toString(),
+                    'classes':  days[date].students[student].classes.toString(),
+                    'date':  date.toString(),
+                }
+                return data.rows.push(arranged)
+            }
+            )
+            // console.log(arranged)
+        })
+    }
+    
     render() {
+        console.log(this.state.days)
+        const data = {
+            columns: [
+                {
+                    label: 'Name',
+                field: 'name',
+                sort: 'asc'
+            },
+            {
+                label: 'Roll #',
+                field: 'rollno',
+                sort: 'asc'
+            },
+            {
+                label: 'Class(es)',
+                field: 'classes',
+                sort: 'asc'
+            },
+            {
+                label: 'Date',
+                field: 'date',
+                sort: 'asc'
+            }
+        ],
+        rows: []
+    }
+    this.state.days !== null && this.arrangeData(data)
         return(
-        <MDBContainer>
+            <MDBContainer>
             <div>
                 <h2>Today's classes</h2>
                 <ol>
@@ -60,6 +114,14 @@ class Admin extends React.Component {
               <label className="custom-control-label" htmlFor="pharmatech">Pharmaceutical Technology</label>
             </div>
             <MDBBtn onClick={()=>this.submitClasses()}>Submit</MDBBtn>
+            <MDBRow>
+                <MDBCol>
+                    <MDBTable responsive>
+                        <MDBTableHead columns={data.columns} />
+                        <MDBTableBody rows={data.rows} />
+                    </MDBTable>
+                </MDBCol>
+            </MDBRow>
         </MDBContainer>
         )
     }
