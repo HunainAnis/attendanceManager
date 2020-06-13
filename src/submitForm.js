@@ -1,7 +1,7 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
 import * as firebase  from 'firebase'
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 
 class SubmitForm extends React.Component {
     state = {
@@ -56,8 +56,8 @@ class SubmitForm extends React.Component {
         db.update(updates)
         console.log('completed!')
         this.setState({name:'', enrollment: '', marketing:false, forensic:false, medchem:false, pharmatech:false,})
+        this.props.history.goBack()
         alert('Your entry is submitted!')
-        return <Redirect to='/' />
     }
     }
 
@@ -74,11 +74,11 @@ class SubmitForm extends React.Component {
     }
 
     render() {
-        console.log(this.state)
+        console.log(this.props)
         return (
         <MDBContainer>
         <MDBRow>
-            <MDBCol md="6">
+            <MDBCol md="12">
             <form>
                 <p className="h5 text-center mb-4">Fill your Details below</p>
                 <div className="grey-text">
@@ -108,4 +108,4 @@ class SubmitForm extends React.Component {
     }
 }
 
-export default SubmitForm
+export default withRouter(SubmitForm)

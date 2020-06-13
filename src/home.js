@@ -4,9 +4,10 @@ import * as firebase from 'firebase'
 import SubmitForm from './submitForm';
 import HeaderTop from './Header';
 import Navbar from './Navbar';
-import { BrowserRouter as Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter as Route, Switch, Redirect, withRouter } from "react-router-dom";
 import Admin from './Admin';
 import { MDBBtn, MDBContainer, MDBNavItem, MDBNavLink } from 'mdbreact';
+import FooterPage from './footer';
 
 class Home extends React.Component {
   state = {
@@ -28,19 +29,21 @@ class Home extends React.Component {
   }
   render() {
   return (
+    <div style={{position: 'relative', minHeight:'100vh'}}>
     <div>
         <Navbar />
-        <HeaderTop />
+        <div style={{height:60}}></div>
         {this.state.days === null 
-        ?<h1>Loading...</h1>
+        ?<h1 style={{textAlign:'center'}}>Loading...</h1>
         :
         <Switch>
             <Route exact path='/'>
               {console.log(this.props)}
-              <MDBContainer style={{alignContent: 'center'}} className='center'>
-              <MDBBtn>
-                <MDBNavLink to="/SubmitForm">Attendance</MDBNavLink>
-            </MDBBtn>
+              <MDBContainer style={{alignContent: 'center'}} className='text-center'>
+                <HeaderTop />
+                <MDBBtn onClick={()=>this.props.history.push('/SubmitForm')}>
+                  Go to Attendance
+                </MDBBtn>
               </MDBContainer>
             </Route>
             <Route exact path='/SubmitForm'>
@@ -51,9 +54,14 @@ class Home extends React.Component {
             </Route>
         </Switch>
       }
+      <div style={{height:60}}></div>
+    </div>
+    <div style={{position: 'absolute', bottom: 0, width: '100%', height: 10}}>
+      <FooterPage />
+    </div>
     </div>
   );
   }
 }
 
-export default Home;
+export default withRouter(Home);

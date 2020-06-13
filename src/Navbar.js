@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBIcon } from "mdbreact";
+import { withRouter } from "react-router-dom";
 
 class Navbar extends Component {
 state = {
@@ -11,27 +12,25 @@ toggleCollapse = () => {
 }
 
 render() {
+  console.log(this.props)
   return (
       <MDBNavbar color="blue" fixed='top' dark expand="md">
-        <MDBNavbarBrand>
+        <MDBNavbarBrand to='/' >
           <strong className="white-text">Attendance Manager</strong>
         </MDBNavbarBrand>
         <MDBNavbarToggler onClick={this.toggleCollapse} />
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
           <MDBNavbarNav left>
-            <MDBNavItem active>
+            <MDBNavItem active={this.props.location.pathname === '/'}>
               <MDBNavLink to="/">Home</MDBNavLink>
             </MDBNavItem>
+            <MDBNavItem active={this.props.location.pathname === '/SubmitForm'}>
               <MDBNavLink to="/SubmitForm">Attendance</MDBNavLink>
+            </MDBNavItem>
           </MDBNavbarNav>
           <MDBNavbarNav right>
-            <MDBNavItem>
+            <MDBNavItem active={this.props.location.pathname === '/Admin'}>
               <MDBNavLink to="/Admin">Admin</MDBNavLink>
-            </MDBNavItem>
-            <MDBNavItem>
-              <a className="unstyled waves-effect waves-light" href="https://github.com/HunainAnis/attendanceManager">
-                <MDBIcon fab icon="github" />
-              </a>
             </MDBNavItem>
           </MDBNavbarNav>
         </MDBCollapse>
@@ -40,4 +39,4 @@ render() {
   }
 }
 
-export default Navbar;
+export default withRouter(Navbar);

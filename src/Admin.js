@@ -74,7 +74,7 @@ class Admin extends React.Component {
     }
     
     render() {
-        console.log(this.state.days)
+        // console.log(this.state.days)
         const data = {
             columns: [
             {
@@ -115,7 +115,7 @@ class Admin extends React.Component {
     this.state.days !== null && this.arrangeData(data)
         return(
             <MDBContainer>
-                <div>
+                <div style={{textAlign:'center'}}>
                     <h2>Today's classes</h2>
                     <ol>
                         {this.props.classes === null
@@ -129,12 +129,12 @@ class Admin extends React.Component {
                 <MDBNav className="nav-tabs mt-5">
                     <MDBNavItem>
                         <MDBNavLink link to="#" active={this.state.activeItem === "1"} onClick={this.toggle("1")} role="tab" >
-                        Updated Classes
+                        Update Classes
                         </MDBNavLink>
                     </MDBNavItem>
                     <MDBNavItem>
                         <MDBNavLink link to="#" active={this.state.activeItem === "2"} onClick={this.toggle("2")} role="tab" >
-                        See Data
+                        View all Attendance
                         </MDBNavLink>
                     </MDBNavItem>
                 </MDBNav>
