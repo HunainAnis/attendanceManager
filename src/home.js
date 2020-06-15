@@ -38,7 +38,7 @@ class Home extends React.Component {
         :
         <Switch>
             <Route exact path='/'>
-              {console.log(this.props)}
+              {/* {console.log(this.props)} */}
               <MDBContainer style={{alignContent: 'center'}} className='text-center'>
                 <HeaderTop />
                 <MDBBtn onClick={()=>this.props.history.push('/SubmitForm')}>
@@ -50,7 +50,7 @@ class Home extends React.Component {
                 <SubmitForm days={this.state.days} classes = {this.state.classes} />
             </Route>
             <Route exact path='/Admin'>
-                <Admin classes = {this.state.classes} />
+                <Admin days={this.state.days} classes = {this.state.classes} />
             </Route>
         </Switch>
       }

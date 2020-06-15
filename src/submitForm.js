@@ -28,13 +28,13 @@ class SubmitForm extends React.Component {
             alert('Please enter you Name!')
         }
         else if(this.state.enrollment === '') {
-            alert('Please enter your correct Roll Number in a format like this (15/2015/000)!')
+            alert('Please enter your correct Roll Number in a format like this (1x/20xx/xxx)!')
         }
         else if(this.state.enrollment[2] !== '/') {
-            alert('Please enter your correct Roll Number in a format like this (15/2015/000)!')
+            alert('Please enter your correct Roll Number in a format like this (1x/20xx/xxx)!')
         }
         else if(this.state.enrollment[7] !== '/') {
-            alert('Please enter your correct Roll Number in a format like this (15/2015/000)!')
+            alert('Please enter your correct Roll Number in a format like this (1x/20xx/xxx)!')
         }
         else if(this.checkerIfExistAlready()) {
             alert('Your data already exist for today!')
@@ -46,15 +46,15 @@ class SubmitForm extends React.Component {
         const { enrollment, name } = this.state
         const classes = Object.keys(this.state).filter(i=>this.state[i]===true)
 
-        console.log(today)
+        console.log(Date().toLocaleString(time))
 
         const db = firebase.database().ref().child('days').child(today).child('students')
-        const key = db.push().key
+        const key = db.push ().key
         const newData = {enrollment, name, time, classes}
         const updates = {}
         updates[key] = newData
         db.update(updates)
-        console.log('completed!')
+        // console.log('completed!')
         this.setState({name:'', enrollment: '', marketing:false, forensic:false, medchem:false, pharmatech:false,})
         this.props.history.goBack()
         alert('Your entry is submitted!')
@@ -74,7 +74,7 @@ class SubmitForm extends React.Component {
     }
 
     render() {
-        console.log(this.props)
+        // console.log(this.props)
         return (
         <MDBContainer>
         <MDBRow>

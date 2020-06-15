@@ -12,7 +12,7 @@ toggleCollapse = () => {
 }
 
 render() {
-  console.log(this.props)
+  // console.log(this.props)
   return (
       <MDBNavbar color="blue" fixed='top' dark expand="md">
         <MDBNavbarBrand to='/' >

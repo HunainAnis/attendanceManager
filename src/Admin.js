@@ -29,12 +29,13 @@ class Admin extends React.Component {
         }
       };
     
-    componentDidMount() {
-        const db = firebase.database().ref().child('days')
-        db.on('value', data=>{
-            this.setState({days:data.val()})
-        })
-    }
+
+    // componentDidMount() {
+    //     const db = firebase.database().ref().child('days')
+    //     db.on('value', data=>{
+    //         this.setState({days:data.val()})
+    //     })
+    // }
 
     submitClasses() {
         const NewArray = Object.keys(this.state).filter(i=>this.state[i]===true)
@@ -55,7 +56,7 @@ class Admin extends React.Component {
         })
     }
     arrangeData(data) {
-        const { days } = this.state
+        const { days } = this.props
         let arranged = {}
         console.log(days)
         Object.keys(days).map(date=>{
@@ -64,7 +65,7 @@ class Admin extends React.Component {
                     'name': days[date].students[student].name.toString(),
                     'rollno': days[date].students[student].enrollment.toString(),
                     'classes':  days[date].students[student].classes!== undefined ? days[date].students[student].classes.toString(): 'not provided',
-                    'date':  date,
+                    'date':  new Date(days[date].students[student].time).toLocaleString(),
                 }
                 return data.rows.push(arranged)
             }
@@ -112,7 +113,7 @@ class Admin extends React.Component {
             </MDBContainer>
             )
     }
-    this.state.days !== null && this.arrangeData(data)
+    this.props.days !== null && this.arrangeData(data)
         return(
             <MDBContainer>
                 <div style={{textAlign:'center'}}>
