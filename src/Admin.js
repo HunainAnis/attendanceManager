@@ -65,7 +65,7 @@ class Admin extends React.Component {
                     'name': days[date].students[student].name.toString(),
                     'rollno': days[date].students[student].enrollment.toString(),
                     'classes':  days[date].students[student].classes!== undefined ? days[date].students[student].classes.toString(): 'not provided',
-                    'date':  new Date(days[date].students[student].time).toLocaleString(),
+                    'date':  new Date(days[date].students[student].time).toLocaleDateString(),
                 }
                 return data.rows.push(arranged)
             }
