@@ -16,11 +16,15 @@ class SubmitForm extends React.Component {
     }
 
     checkerIfExistAlready() {
-        const now = new Date()
-        let today = now.getDate().toString()+(now.getMonth()+1).toString()+now.getFullYear().toString()
-        const { days } = this.props
-
-        return days[today] !== undefined && Object.keys(days[today].students).filter(i=>days[today].students[i].enrollment === this.state.enrollment).length !== 0 
+        if(this.props.days === null) {
+            return false
+        }else {
+            const now = new Date()
+            let today = now.getDate().toString()+(now.getMonth()+1).toString()+now.getFullYear().toString()
+            const { days } = this.props
+    
+            return days[today] !== undefined && Object.keys(days[today].students).filter(i=>days[today].students[i].enrollment === this.state.enrollment).length !== 0 
+        }
     }
 
     handleSubmit() {
@@ -76,7 +80,10 @@ class SubmitForm extends React.Component {
     render() {
         // console.log(this.props)
         return (
-        <MDBContainer>
+            <MDBContainer>
+            {/* {this.props.days === null 
+                ?<h1 style={{textAlign:'center'}}>Loading...</h1>
+                : */}
         <MDBRow>
             <MDBCol md="12">
             <form>

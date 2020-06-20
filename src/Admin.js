@@ -55,10 +55,19 @@ class Admin extends React.Component {
             [e.target.name]:e.target.value
         })
     }
+
+    removeEntry(ref,id) {
+        const db = firebase.database().ref().child('days').child(ref).child('students').child(id)
+        db.remove()
+        .then(
+            console.log(ref,id)
+        )
+    }
+
     arrangeData(data) {
         const { days } = this.props
         let arranged = {}
-        console.log(days)
+        // console.log(days)
         Object.keys(days).map(date=>{
             Object.keys(days[date].students).map(student=>{
                arranged = {
@@ -66,6 +75,7 @@ class Admin extends React.Component {
                     'rollno': days[date].students[student].enrollment.toString(),
                     'classes':  days[date].students[student].classes!== undefined ? days[date].students[student].classes.toString(): 'not provided',
                     'date':  new Date(days[date].students[student].time).toLocaleDateString(),
+                    'remove': <MDBBtn onClick={()=>this.removeEntry(date,student)}>X</MDBBtn>
                 }
                 return data.rows.push(arranged)
             }
@@ -100,6 +110,12 @@ class Admin extends React.Component {
                 label: 'Date',
                 field: 'date',
                 key: 'date',
+                sort: 'dsc'
+            },
+            {
+                label: 'Remove',
+                field: 'remove',
+                key: 'remove',
                 sort: 'dsc'
             }
         ],

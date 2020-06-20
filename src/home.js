@@ -4,9 +4,9 @@ import * as firebase from 'firebase'
 import SubmitForm from './submitForm';
 import HeaderTop from './Header';
 import Navbar from './Navbar';
-import { BrowserRouter as Route, Switch, Redirect, withRouter } from "react-router-dom";
+import { BrowserRouter as Route, Switch, withRouter } from "react-router-dom";
 import Admin from './Admin';
-import { MDBBtn, MDBContainer, MDBNavItem, MDBNavLink } from 'mdbreact';
+import { MDBBtn, MDBContainer } from 'mdbreact';
 import FooterPage from './footer';
 
 class Home extends React.Component {
@@ -33,9 +33,9 @@ class Home extends React.Component {
     <div>
         <Navbar />
         <div style={{height:60}}></div>
-        {this.state.days === null 
+        {/* {this.state.days === null 
         ?<h1 style={{textAlign:'center'}}>Loading...</h1>
-        :
+        : */}
         <Switch>
             <Route exact path='/'>
               {/* {console.log(this.props)} */}
@@ -53,7 +53,7 @@ class Home extends React.Component {
                 <Admin days={this.state.days} classes = {this.state.classes} />
             </Route>
         </Switch>
-      }
+      
       <div style={{height:60}}></div>
     </div>
     <div style={{position: 'absolute', bottom: 0, width: '100%', height: 10}}>

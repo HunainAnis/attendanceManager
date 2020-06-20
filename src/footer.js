@@ -1,5 +1,5 @@
 import React from "react";
-import { MDBCol, MDBContainer, MDBRow, MDBFooter, MDBIcon } from "mdbreact";
+import { MDBContainer, MDBFooter, MDBIcon } from "mdbreact";
 
 const FooterPage = () => {
   return (
