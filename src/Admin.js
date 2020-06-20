@@ -69,7 +69,7 @@ class Admin extends React.Component {
         let arranged = {}
         // console.log(days)
         Object.keys(days).map(date=>{
-            Object.keys(days[date].students).map(student=>{
+            return Object.keys(days[date].students).map(student=>{
                arranged = {
                     'name': days[date].students[student].name.toString(),
                     'rollno': days[date].students[student].enrollment.toString(),
